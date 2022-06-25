@@ -7,35 +7,35 @@
  Description : Hello World in C, Ansi-style
  ============================================================================
  1 Enunciado
-Una agencia de viaje necesita calcular costos para sus vuelos de Latam y Aerolíneas Argentinas
-para ofrecerlos a sus clientes.
-Se deberá ingresar por cada vuelo los km totales y el precio total del mismo.
-El objetivo de la aplicación es mostrar las diferentes opciones de pagos a sus clientes.
-Para ello el programa iniciará y contará con un menú de opciones:
-1. Ingresar Kilómetros: ( km=x)
-2. Ingresar Precio de Vuelos: (Aerolíneas=y, Latam=z)
-- Precio vuelo Aerolíneas:
-- Precio vuelo Latam:
-3. Calcular todos los costos:
-a) Tarjeta de débito (descuento 10%)
-b) Tarjeta de crédito (interés 25%)
-c) Bitcoin (1BTC -> 4606954.55 Pesos Argentinos)
-d) Mostrar precio por km (precio unitario)
-e) Mostrar diferencia de precio ingresada (Latam - Aerolíneas)
-4. Informar Resultados
-“Latam:
-a) Precio con tarjeta de débito: r
-b) Precio con tarjeta de crédito: r
-c) Precio pagando con bitcoin : r
-d) Precio unitario: r
-Aerolíneas:
-a) Precio con tarjeta de débito: r
-b) Precio con tarjeta de crédito: r
-c) Precio pagando con bitcoin : r
-d) Precio unitario: r
-La diferencia de precio es : r “
-5. Carga forzada de datos
-6. Salir
+ Una agencia de viaje necesita calcular costos para sus vuelos de Latam y Aerolï¿½neas Argentinas
+ para ofrecerlos a sus clientes.
+ Se deberï¿½ ingresar por cada vuelo los km totales y el precio total del mismo.
+ El objetivo de la aplicaciï¿½n es mostrar las diferentes opciones de pagos a sus clientes.
+ Para ello el programa iniciarï¿½ y contarï¿½ con un menï¿½ de opciones:
+ 1. Ingresar Kilï¿½metros: ( km=x)
+ 2. Ingresar Precio de Vuelos: (Aerolï¿½neas=y, Latam=z)
+ - Precio vuelo Aerolï¿½neas:
+ - Precio vuelo Latam:
+ 3. Calcular todos los costos:
+ a) Tarjeta de dï¿½bito (descuento 10%)
+ b) Tarjeta de crï¿½dito (interï¿½s 25%)
+ c) Bitcoin (1BTC -> 4606954.55 Pesos Argentinos)
+ d) Mostrar precio por km (precio unitario)
+ e) Mostrar diferencia de precio ingresada (Latam - Aerolï¿½neas)
+ 4. Informar Resultados
+ ï¿½Latam:
+ a) Precio con tarjeta de dï¿½bito: r
+ b) Precio con tarjeta de crï¿½dito: r
+ c) Precio pagando con bitcoin : r
+ d) Precio unitario: r
+ Aerolï¿½neas:
+ a) Precio con tarjeta de dï¿½bito: r
+ b) Precio con tarjeta de crï¿½dito: r
+ c) Precio pagando con bitcoin : r
+ d) Precio unitario: r
+ La diferencia de precio es : r ï¿½
+ 5. Carga forzada de datos
+ 6. Salir
 
  */
 
@@ -43,12 +43,11 @@ La diferencia de precio es : r “
 #include <stdlib.h>
 #include "calculos.h"
 
-
 int main(void) {
 	setbuf(stdout, NULL);
 
 	int opcion;
-	int kilometros;
+	float kilometros;
 	float precioLatam;
 	float precioAerolineas;
 	float precioDebitoLatam;
@@ -60,95 +59,154 @@ int main(void) {
 	float precioBtcAerolineas;
 	float precioPorKmAerolineas;
 	float diferenciaPrecios;
+	int banderakm = 0;
+	int banderaprecioArgentinas = 0;
+	int banderaprecioLatam = 0;
+	int banderaCostos=0;
 
+	do {
 
-	do{
-
-
-	printf("\n\n1- Ingresar Kilómetros(km=x). \n"
-				"2- Ingresar Precio de Vuelos.(Aerolíneas=y, Latam=z) \n"
+		printf("\n\n1- Ingresar Kilometros(km=x). \n"
+				"2- Ingresar Precio de Vuelos.(Aerolineas=y, Latam=z) \n"
 				"3- Calcular todos los costos. \n"
 				"4- Informar Resultados. \n"
 				"5- Carga forzada de datos. \n"
 				"6- Salir. \n"
-				"\n Ingrese la opción deseada: ");
+				"\n Ingrese la opcion deseada: ");
 
-	scanf("%d", &opcion);
+		scanf("%d", &opcion);
 
-	switch(opcion)
-		{
-				case 1:
-				printf("ingrese los kilometros");
-				scanf("%d", &kilometros);
-				break;
-				case 2:
-				printf("ingrese el precio de Aerolineas Argentinas");
-				scanf("%f", &precioAerolineas);
-				printf("ingrese el precio de Aerolineas Latam ");
-				scanf("%f", &precioLatam);
-				break;
-				case 3:
-				precioDebitoLatam= valorDebito(precioLatam);
-				precioCreditoLatam= valorCredito(precioLatam);
-				precioBtcLatam= valorBtc(precioLatam);
-				precioPorKmLatam= precioPorKm(precioLatam,kilometros);
-				precioDebitoAerolineas= valorDebito(precioAerolineas);
-				precioCreditoAerolineas=valorCredito(precioAerolineas);
-				precioBtcAerolineas= valorBtc(precioAerolineas);
-				precioPorKmAerolineas= precioPorKm(precioAerolineas,kilometros);
-				diferenciaPrecios= diferenciaPrecio(precioLatam ,precioAerolineas);
-				break;
-				case 4:
-				printf("\nKMs Ingresados: %d km"
+		switch (opcion) {
+		case 1:
+			printf("\ningrese los kilometros: ");
+			scanf("%f", &kilometros);
+			if (kilometros > 0) {
+				banderakm = 1;
+			} else {
+				printf("\nERROR , ingrese un valor valido");
+			}
+			break;
+		case 2:
+			printf("\ningrese el precio de Aerolineas Argentinas: ");
+			scanf("%f", &precioAerolineas);
+			if (precioAerolineas > 0) {
+				banderaprecioArgentinas = 1;
+			} else {
+				printf("\n ingrese un valor valido");
+			}
+			printf("\ningrese el precio de Aerolineas Latam: ");
+			scanf("%f", &precioLatam);
+			if (precioLatam > 0) {
+				banderaprecioLatam = 1;
+			} else {
+				printf("\n ingrese un valor valido");
+			}
+			break;
+		case 3:
+			if (banderakm == 1 && banderaprecioArgentinas == 1
+					&& banderaprecioLatam == 1) {
+				precioDebitoLatam = valorDebito(precioLatam);
+				precioCreditoLatam = valorCredito(precioLatam);
+				precioBtcLatam = valorBtc(precioLatam);
+				precioPorKmLatam = precioPorKm(precioLatam, kilometros);
+				precioDebitoAerolineas = valorDebito(precioAerolineas);
+				precioCreditoAerolineas = valorCredito(precioAerolineas);
+				precioBtcAerolineas = valorBtc(precioAerolineas);
+				precioPorKmAerolineas = precioPorKm(precioAerolineas,
+						kilometros);
+				diferenciaPrecios = diferenciaPrecio(precioLatam,
+						precioAerolineas);
+				banderaCostos=1;
+				printf("\n los calculos han sido realizados correctamente");
+			} else {
+				if (banderakm == 0) {
+					printf("ingrese los kilometros\n");
+				}
+				if (banderaprecioArgentinas == 0) {
+					printf("ingrese el precio de Aerolineas Argentinas\n");
+				}
+				if (banderaprecioLatam == 0) {
+					printf("ingrese el precio de Aerolineas Latam\n");
+				}
+			}
+			break;
+		case 4:
+			if (banderakm == 1 && banderaprecioArgentinas == 1
+					&& banderaprecioLatam == 1 && banderaCostos==1) {
+				printf("\nKMs Ingresados: %f km"
 						"\n\nPrecio Aerolineas: $ %.2f"
 						"\na) Precio con tarjeta de debito: $ %.2f"
 						"\nb) Precio con tarjeta de credito: $ %.2f"
-						"\nc) Precio pagando con bitcoin: $ %.2f"
+						"\nc) Precio pagando con bitcoin: $ %.7f"
 						"\nd) Mostrar precio unitario: $ %.2f"
 						"\n\nPrecio Latam: $ %.2f"
 						"\na) Precio con tarjeta de debito: $ %.2f"
 						"\nb) Precio con tarjeta de credito: $ %.2f"
-						"\nc) Precio pagando con bitcoin: $ %.2f"
+						"\nc) Precio pagando con bitcoin: $ %.7f"
 						"\nd) Mostrar precio unitario: $ %.2f"
-						"\n\n Diferencia: %.2f",kilometros, precioAerolineas, precioDebitoAerolineas, precioCreditoAerolineas , precioBtcAerolineas, precioPorKmAerolineas, precioLatam, precioDebitoLatam, precioCreditoLatam, precioBtcLatam, precioPorKmLatam, diferenciaPrecios);
+						"\n\n Diferencia: %.2f", kilometros, precioAerolineas,
+						precioDebitoAerolineas, precioCreditoAerolineas,
+						precioBtcAerolineas, precioPorKmAerolineas, precioLatam,
+						precioDebitoLatam, precioCreditoLatam, precioBtcLatam,
+						precioPorKmLatam, diferenciaPrecios);
+			} else {
+				if(banderaCostos==0)
+				{
+					printf("Todavia no se han calculado los costos \n");
+				}
+				if (banderakm == 0) {
+					printf("ingrese los kilometros\n");
+				}
+				if (banderaprecioArgentinas == 0) {
+					printf("ingrese el precio de Aerolineas Argentinas\n");
+				}
+				if (banderaprecioLatam == 0) {
+					printf("ingrese el precio de Aerolineas Latam\n");
+				}
+			}
+			break;
+		case 5:
 
-				break;
-				case 5:
-				precioLatam = 159339;
-				kilometros = 7090;
-				precioAerolineas= 162965;
-				precioDebitoLatam= valorDebito(precioLatam);
-				precioCreditoLatam= valorCredito(precioLatam);
-				precioBtcLatam= valorBtc(precioLatam);
-				precioPorKmLatam= precioPorKm(precioLatam,kilometros);
-				precioDebitoAerolineas= valorDebito(precioAerolineas);
-				precioCreditoAerolineas=valorCredito(precioAerolineas);
-				precioBtcAerolineas= valorBtc(precioAerolineas);
-				precioPorKmAerolineas= precioPorKm(precioAerolineas,kilometros);
-				diferenciaPrecios= diferenciaPrecio(precioLatam ,precioAerolineas);
-				printf("\nKMs Ingresados: %d km"
-						"\n\nPrecio Aerolineas: $ %.2f"
-						"\na) Precio con tarjeta de debito: $ %.2f"
-						"\nb) Precio con tarjeta de credito: $ %.2f"
-						"\nc) Precio pagando con bitcoin: $ %.2f"
-						"\nd) Mostrar precio unitario: $ %.2f"
-						"\n\nPrecio Latam: $ %.2f"
-						"\na) Precio con tarjeta de debito: $ %.2f"
-						"\nb) Precio con tarjeta de credito: $ %.2f"
-						"\nc) Precio pagando con bitcoin: $ %.2f"
-						"\nd) Mostrar precio unitario: $ %.2f"
-						"\n\n Diferencia: %.2f",kilometros, precioAerolineas, precioDebitoAerolineas, precioCreditoAerolineas , precioBtcAerolineas, precioPorKmAerolineas, precioLatam, precioDebitoLatam, precioCreditoLatam, precioBtcLatam, precioPorKmLatam, diferenciaPrecios);
-				break;
-				case 6:
-				printf("Muchas gracias por utilizar nuestra plataforma");
-				break;
+			precioLatam = 159339;
+			kilometros = 7090;
+			precioAerolineas = 162965;
+			precioDebitoLatam = valorDebito(precioLatam);
+			precioCreditoLatam = valorCredito(precioLatam);
+			precioBtcLatam = valorBtc(precioLatam);
+			precioPorKmLatam = precioPorKm(precioLatam, kilometros);
+			precioDebitoAerolineas = valorDebito(precioAerolineas);
+			precioCreditoAerolineas = valorCredito(precioAerolineas);
+			precioBtcAerolineas = valorBtc(precioAerolineas);
+			precioPorKmAerolineas = precioPorKm(precioAerolineas, kilometros);
+			diferenciaPrecios = diferenciaPrecio(precioLatam, precioAerolineas);
+			printf("\nKMs Ingresados: %f km"
+					"\n\nPrecio Aerolineas: $ %.2f"
+					"\na) Precio con tarjeta de debito: $ %.2f"
+					"\nb) Precio con tarjeta de credito: $ %.2f"
+					"\nc) Precio pagando con bitcoin: $ %.7f"
+					"\nd) Mostrar precio unitario: $ %.2f"
+					"\n\nPrecio Latam: $ %.2f"
+					"\na) Precio con tarjeta de debito: $ %.2f"
+					"\nb) Precio con tarjeta de credito: $ %.2f"
+					"\nc) Precio pagando con bitcoin: $ %.7f"
+					"\nd) Mostrar precio unitario: $ %.2f"
+					"\n\n Diferencia: %.2f", kilometros, precioAerolineas,
+					precioDebitoAerolineas, precioCreditoAerolineas,
+					precioBtcAerolineas, precioPorKmAerolineas, precioLatam,
+					precioDebitoLatam, precioCreditoLatam, precioBtcLatam,
+					precioPorKmLatam, diferenciaPrecios);
 
-				default:
-				printf("esta opcion no es valida");
+			break;
+		case 6:
+			printf("Muchas gracias por utilizar nuestra plataforma");
+			break;
+
+		default:
+			printf("esta opcion no es valida");
 
 		}
 
-	}while(opcion != 6);
+	} while (opcion != 6);
 
 	return EXIT_SUCCESS;
 }

@@ -14,7 +14,7 @@ float valorCredito(float precio);
 
 float valorBtc(float precio);
 
-float precioPorKm (float precio, int kilometros);
+float precioPorKm (float precio, float kilometros);
 
 float diferenciaPrecio (float precioLatam, float precioAerolineas);
 

@@ -36,12 +36,12 @@ float valorBtc (float precio)
 	return precioBtc;
 }
 
-float precioPorKm (float precio, int kilometros)
+float precioPorKm (float precio, float kilometros)
 
 {
 	float precioKm;
 
-	precioKm= (float) precio / kilometros;
+	precioKm= (float) ( precio / ((float) kilometros));
 
 	return precioKm;
 
